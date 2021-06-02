@@ -110,3 +110,14 @@ showProducts() //undefined ve []
 showProducts(10,"Elma","Armut","Karpuz") //10 ve (3) ["Elma", "Armut", "Karpuz"]
 //parametre olarak array yollarsam?
 showProducts(10,["Elma","Armut","Karpuz"]) //10 ve [Array(3)] , array içerisinde array gönderdi
+
+//(...values: number[]): number
+console.log(Math.max(1,2,3,4,5,6,7,8,9,10)); //10
+console.log(Math.max([1,2,3,4,5,6,7,8,9,10])); //NaN
+
+//spread (ayrıştırmak)
+//değer array olarak geliyor olsaydı
+let points = [1,2,3,4,5,6,7,8,9,10]
+console.log(...points); //1 2 3 4 5 6 7 8 9 10
+console.log(Math.max(...points)); //10
+console.log(..."ABC","D",..."EFG","H"); //A B C D E F G H
