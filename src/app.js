@@ -63,3 +63,25 @@ function save2(puan=10,ogrenci){
 }
 //save2(student); //'name' of undefined
 save2(undefined,student); //Engin : 10
+
+
+let students = [
+    'Student1',
+    'Student2',
+    'Student3'
+];
+console.log(students); //(3) ["Student1", "Student2", "Student3"]
+
+let students2 = [
+    student,
+    {id:2,name:'Student2'}
+]
+console.log(students2); //(2) [{…}, {…}]
+
+let students3 = [
+    student,
+    {id:2,name:'Student2'},
+    "Ankara",
+    {city:"İstanbul"}
+]
+console.log(students3); //(4) [{…}, {…}, "Ankara", {…}]
