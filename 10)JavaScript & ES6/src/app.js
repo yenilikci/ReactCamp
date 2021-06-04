@@ -166,3 +166,5 @@ console.log(category["name"]); //içecek
 let {id,name} = category;
 console.log(id); //1
 console.log(name); //içecek
+
+
