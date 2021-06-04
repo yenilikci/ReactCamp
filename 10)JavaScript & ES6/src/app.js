@@ -107,17 +107,62 @@ let showProducts = function (id, ...products) {
 }
 console.log(typeof showProducts); //function
 showProducts() //undefined ve []
-showProducts(10,"Elma","Armut","Karpuz") //10 ve (3) ["Elma", "Armut", "Karpuz"]
+showProducts(10, "Elma", "Armut", "Karpuz") //10 ve (3) ["Elma", "Armut", "Karpuz"]
 //parametre olarak array yollarsam?
-showProducts(10,["Elma","Armut","Karpuz"]) //10 ve [Array(3)] , array içerisinde array gönderdi
+showProducts(10, ["Elma", "Armut", "Karpuz"]) //10 ve [Array(3)] , array içerisinde array gönderdi
 
 //(...values: number[]): number
-console.log(Math.max(1,2,3,4,5,6,7,8,9,10)); //10
-console.log(Math.max([1,2,3,4,5,6,7,8,9,10])); //NaN
+console.log(Math.max(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)); //10
+console.log(Math.max([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])); //NaN
 
 //spread (ayrıştırmak)
 //değer array olarak geliyor olsaydı
-let points = [1,2,3,4,5,6,7,8,9,10]
+let points = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 console.log(...points); //1 2 3 4 5 6 7 8 9 10
 console.log(Math.max(...points)); //10
-console.log(..."ABC","D",..."EFG","H"); //A B C D E F G H
+console.log(..."ABC", "D", ..."EFG", "H"); //A B C D E F G H
+
+
+//Destructuring
+//Elimizdeki array'in değerlerini değişkenlere atamak
+let populations = [10000, 20000, 30000]
+let [small, medium, high] = populations //populations arrayini sırasıyla small,medium,high değerlerine aktardık
+console.log(small); //10000
+console.log(medium); //20000
+console.log(high); //30000
+
+
+let populations2 = [10000, 20000, 30000, [40000, 100000]]
+let [small2, medium2, high2, veryHigh2, maximum2] = populations2
+console.log(small2); //10000
+console.log(medium2); //20000
+console.log(high2); //30000
+console.log(veryHigh2); //[40000,100000]
+console.log(maximum2); //undefined
+
+
+let populations3 = [10000, 20000, 30000, [40000, 100000]]
+let [small3, medium3, high3, [veryHigh3, maximum3]] = populations3
+console.log(small3); //10000
+console.log(medium3); //20000
+console.log(high3); //30000
+console.log(veryHigh3); //40000
+console.log(maximum3); //100000
+
+
+function someFunction([smallx], number) {
+    console.log(smallx);
+}
+someFunction(populations) //10000
+
+
+let category = {
+    id: 1,
+    name: "İçecek"
+}
+console.log(category.id); //1
+console.log(category["name"]); //içecek
+//obje destruct
+let {id,name} = category;
+console.log(id); //1
+console.log(name); //içecek
