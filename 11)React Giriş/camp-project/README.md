@@ -1,70 +1,126 @@
-# Getting Started with Create React App
+**Projeyi Başlatmak**
+- klasöre geçelim
+`cd camp-project`
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- ayağa kaldıralım 
+`npm start`
 
-## Available Scripts
+**Ders İçerisinden Notlar**
 
-In the project directory, you can run:
+**App.js** -> route component görevini görür
+Bu js dosyamıza eşlik edecek bir App.css dosyamız var css kodlarımız burada yer alır.
 
-### `npm start`
+**App.test.js** -> Unit testler de yazabiliyoruz React uygulamamızda
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- App.js aslında bir fonksiyondur da ve direkt bir return ifadesine sahiptir
+- Componentimizin görüntüsü aslında return içerisinde yazan kodtur
+- return içerisinde html görünümlü javascript yazarız -> **jsx**
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Burada biz component mimarisi kurarız; içerisinde yer alan kodlar bir xml syntaxı formatındadır.
 
-### `npm test`
+**className** -> htmlde kulllanılan class'a denk gelir
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Js kodlarını süslü parantez içerisinde kullanabiliyoruz.
 
-### `npm run build`
+**Index.js** ->  Burası bizim ana componentimiz, ilk başlatılacak olan js dosyamızdır.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Bir component içerisindeki datayı başka bir component içerisinde kullanabilmek durum yönetimidir. (**State Management**)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Index.js**
+App componenti root`a yerleştirmek
+```javascript
+ReactDOM.render(
+    <App />,document.getElementById('root')
+);
+```
+Peki bu root nerede;
+**Public/index.html**
+body içerisinde ````<div id ="root">````
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+App.js içerisine baktığımızda return içerisinde bir divimiz var.
+Jsx yazdığımız zaman react componentleri için bir container elemente ihtiyaç duyarız.
+```javascript
+return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  );
+```
+Görüldüğü üzere className değeri App olan bir div container.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Kurulan Paketler
+Semantic UI React
+```bash
+npm install semantic-ui-react semantic-ui-css
+```
+Axios
+```bash
+npm install axios
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- src içerisindeki layouts ve pages klasörleri içerisine component eklemeleri yapıldı.
+- Planlanan component hiyerarşisine göre birbiri içerisinde çağrıldı.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+**services** klasörü
+Api isteklerimi ve uygulama mantığı ile ilgili kodları bu klasör içerisine koyarım.
 
-## Learn More
+**export** keyword -> dışarıya açmak için
+**default** keyword -> direkt ismi ile kullanmak için
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+İstek atmak için axios kullanacağız
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**productService.js**
+```javascript
+import axios from "axios";
+export default class ProductService {
+  getProducts() {
+    return axios.get("http://localhost:8080/api/products/getall")
+  }
+}
+```
+Ürün listesi sayfasında gelen verileri listelemek
+**ProductList.js**
+```javascript
+  const [products, setProducts] = useState([]);
+  
+  //sayfa yüklendiğinde bunu çalıştırır
+  useEffect(() => {
+    let productService  = new ProductService()
+    productService.getProducts() //promise döner
+    .then(result => setProducts(result.data.data)) //başarılı
+    .catch() //başarısız
+  })
+```
 
-### Code Splitting
+- useState bir nesne döner onu destruct ederiz.
+- Döndürdüğü yapıda bir data ve bir fonksiyon vardır. (product ve setProducts)
+- products`ın default değeri şu anda boş bir dizi, yani useState başlangıç durumu.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```javascript
+<Table.Body>
+          {products.map((product) => (
+            <Table.Row key={product.id}>
+              <Table.Cell>{product.productName}</Table.Cell>
+              <Table.Cell>{product.unitPrice}</Table.Cell>
+              <Table.Cell>{product.unitsInStock}</Table.Cell>
+              <Table.Cell>{product.quantityPerUnit}</Table.Cell>
+              <Table.Cell>{product.category.categoryName}</Table.Cell>
+            </Table.Row>
+          ))}
+</Table.Body>
+```
